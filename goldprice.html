@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>International Gold Price Dashboard</title>
+  <style>
+    :root{
+      --bg:#0b0f14; --panel:#131a22; --muted:#7a8aa0; --text:#dbe7ff; --accent:#49c; --ring:#2a87ff33;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Helvetica,Arial,sans-serif; background:var(--bg); color:var(--text)}
+    header{position:sticky; top:0; z-index:10; backdrop-filter:saturate(1.2) blur(6px); background:linear-gradient(180deg, #0b0f14ee, #0b0f1400 80%);}
+    .wrap{max-width:1200px; margin:0 auto; padding:24px}
+    h1{font-size:clamp(20px,3vw,28px); margin:0 0 4px}
+    p.sub{margin:0; color:var(--muted); font-size:14px}.grid{display:grid; gap:16px; grid-template-columns:repeat(12,1fr); margin-top:16px}
+.card{grid-column:span 12; background:var(--panel); border-radius:16px; padding:14px; box-shadow:0 6px 30px #00000055; border:1px solid #1e2937}
+@media(min-width:900px){ .span-6{grid-column:span 6} .span-4{grid-column:span 4} }
+
+.toolbar{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.select, .btn{border:1px solid #263445; background:#0f151d; color:var(--text); padding:10px 12px; border-radius:12px; cursor:pointer}
+.btn{background:linear-gradient(180deg,#112233,#0f1a26);}
+.note{color:var(--muted); font-size:12px}
+
+.widget{display:none}
+.widget.active{display:block}
+.widgets-grid{display:grid; grid-template-columns:1fr; gap:16px}
+@media(min-width:900px){ .widgets-grid{grid-template-columns:1fr 1fr} }
+
+.badge{display:inline-flex; gap:6px; align-items:center; font-size:12px; color:#9fb7d6; background:#0e1620; border:1px solid #263445; padding:6px 10px; border-radius:999px}
+
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>International Gold Price Dashboard</h1>
+      <p class="sub">Live charts from different markets & currencies — compare trends across regions in one place.</p>
+    </div>
+  </header>  <main class="wrap">
+    <section class="card">
+      <div class="toolbar">
+        <label class="badge" title="Choose the market view to display">
+          <span>Market view:</span>
+          <select id="view" class="select">
+            <option value="global">Global (Spot & Futures)</option>
+            <option value="us">United States (COMEX)</option>
+            <option value="india">India (INR & MCX)</option>
+            <option value="europe">Europe (EUR)</option>
+            <option value="asia">Asia (Shanghai/HK proxies)</option>
+          </select>
+        </label>
+        <button class="btn" id="showAll">Show all panels</button>
+        <span class="note">Data courtesy of TradingView widgets. Prices are indicative and for education/monitoring.</span>
+      </div>
+    </section><!-- GLOBAL VIEW -->
+<section id="global" class="card widget active">
+  <h2 style="margin:0 0 8px">Global – Spot (XAU/USD) & Front-Month Futures</h2>
+  <div class="widgets-grid">
+    <!-- Spot Gold XAUUSD (CFD/TVC) -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "TVC:GOLD",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "hide_legend": false,
+        "studies": ["STD;RSI"],
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+
+    <!-- COMEX Futures GC1! -->
+    <div class="tradingview-widget-container">
+      <div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "COMEX:GC1!",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "studies": ["STD;EMA@tv-basicstudies"],
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
+<!-- UNITED STATES VIEW -->
+<section id="us" class="card widget">
+  <h2 style="margin:0 0 8px">United States – COMEX Gold & Miners (for context)</h2>
+  <div class="widgets-grid">
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "COMEX:GC1!",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "AMEX:GDX",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
+<!-- INDIA VIEW -->
+<section id="india" class="card widget">
+  <h2 style="margin:0 0 8px">India – INR Reference (XAU/INR) & MCX Futures</h2>
+  <div class="widgets-grid">
+    <!-- XAUINR proxy via OANDA (if unavailable in your region, this box may appear blank) -->
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "OANDA:XAUINR",
+        "interval": "60",
+        "timezone": "Asia/Kolkata",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+    <!-- MCX continuous gold futures -->
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "MCX:GOLD1!",
+        "interval": "60",
+        "timezone": "Asia/Kolkata",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
+<!-- EUROPE VIEW -->
+<section id="europe" class="card widget">
+  <h2 style="margin:0 0 8px">Europe – EUR Reference & Xetra-Gold Proxy</h2>
+  <div class="widgets-grid">
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "FX_IDC:XAUEUR",
+        "interval": "60",
+        "timezone": "Etc/UTC",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "XETR:4GLD",
+        "interval": "60",
+        "timezone": "Europe/Berlin",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+  </div>
+</section>
+
+<!-- ASIA VIEW (Proxies; SGE data is not embeddable directly via TV) -->
+<section id="asia" class="card widget">
+  <h2 style="margin:0 0 8px">Asia – Regional Proxies (HK, CN, SGD)</h2>
+  <div class="widgets-grid">
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "FOREXCOM:XAUCNH",
+        "interval": "60",
+        "timezone": "Asia/Shanghai",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+    <div class="tradingview-widget-container"><div class="tradingview-widget-container__widget"></div>
+      <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+      {
+        "autosize": true,
+        "symbol": "FX_IDC:XAUSGD",
+        "interval": "60",
+        "timezone": "Asia/Singapore",
+        "theme": "dark",
+        "style": "1",
+        "locale": "en",
+        "allow_symbol_change": false,
+        "calendar": false,
+        "withdateranges": true,
+        "details": true
+      }
+      </script>
+    </div>
+  </div>
+  <p class="note" style="margin-top:8px">Note: The Shanghai Gold Exchange benchmark itself is not available via TradingView embeds; the above charts are practical regional proxies.</p>
+</section>
+
+<section class="card">
+  <h3 style="margin:0 0 6px">Tips</h3>
+  <ul style="margin:0 0 4px 18px; line-height:1.6">
+    <li>Use the dropdown to switch views or click <em>Show all panels</em> to compare at once.</li>
+    <li>Change timeframe inside each chart (1D/1W/1M) and add indicators (EMA/RSI) from the chart menu.</li>
+    <li>For city-wise Indian retail rates, cross-check with your jeweller association feed (e.g., IBA) in addition to MCX.</li>
+  </ul>
+</section>
+
+<section class="card">
+  <small class="note">Disclaimer: This dashboard embeds third-party widgets that may be subject to availability or regional symbol permissions. It is intended for educational and monitoring purposes for IdeaKDC / Rahul Gandhi Stock.
+  </small>
+</section>
+
+  </main>  <script>
+    const viewSel = document.getElementById('view');
+    const widgets = Array.from(document.querySelectorAll('.widget'));
+    const showAllBtn = document.getElementById('showAll');
+
+    function setView(v){
+      widgets.forEach(w=>w.classList.remove('active'));
+      if(v === 'all'){ widgets.forEach(w=>w.classList.add('active')); return; }
+      const el = document.getElementById(v);
+      if(el) el.classList.add('active');
+    }
+
+    viewSel.addEventListener('change', e=> setView(e.target.value));
+    showAllBtn.addEventListener('click', ()=> setView('all'));
+  </script></body>
+</html>
